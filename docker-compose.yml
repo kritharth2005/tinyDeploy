@@ -1,0 +1,15 @@
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: tiny-jenkins
+    user: root
+    ports:
+      - "9090:8080" # We use 9090 because your Spring App uses 8080
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock # Jenkins needs to spawn containers too!
+    restart: unless-stopped
+
+volumes:
+  jenkins_home:
